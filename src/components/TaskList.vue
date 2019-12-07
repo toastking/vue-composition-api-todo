@@ -1,10 +1,12 @@
 <template>
-  <main>
+  <main class="task-list">
+    <h1>Vue Composition API Todo</h1>
     <div class="add">
       <input type="text" v-model="newTaskText" />
       <button type="button" v-on:click="addTask()">Add task</button>
     </div>
     <div class="list">
+      <h2>Task List</h2>
       <task v-for="task in taskList" :key="task.id" :task="task" />
     </div>
   </main>
@@ -44,7 +46,7 @@ function useAddTask(taskList: Task[]) {
     // Generate a new id lazily
     const newId = Math.round(Math.random() * 100);
     // Add the new task
-    taskList.push({ taskText: newTaskText.value, id: newId });
+    taskList.push({ taskText: newTaskText.value, id: newId, done: false });
     // Clear the input
     newTaskText.value = '';
   }
@@ -52,3 +54,20 @@ function useAddTask(taskList: Task[]) {
   return { newTaskText, addTask };
 }
 </script>
+
+<style scoped>
+.task-list .add {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 1em;
+}
+
+.task-list .add button {
+  margin-left: 1em;
+}
+
+.task-list .add input {
+  margin-left: 0;
+}
+</style>
